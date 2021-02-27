@@ -1,0 +1,89 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #FFFAFA!important;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.nav-parent{
+  background-color: rgba(244, 146, 117,1)!important;
+  /*background: url("images/stars-nav.jpg");*/
+  /*background-position: center;*/
+  /*background-repeat: no-repeat;*/
+  /*background-size:cover ;*/
+}
+
+/*f49d75*/
+.display-card{
+  /*margin:0 auto;*/
+  display: flex!important;
+  /*border: ;*/
+  box-shadow: 0.5rem 0.5rem rgba(244, 210, 117,0)!important;
+  border-radius:1rem!important;
+  overflow:hidden!important;
+  margin:1rem;
+}
+
+.display-card:hover{
+  cursor: pointer;
+  box-shadow: 0.5rem 0.5rem rgba(244, 210, 117,1)!important;
+
+}
+
+.display-card-image{
+  object-fit: cover!important;
+}
+
+.main-content{
+  margin:0 2rem!important;
+}
+
+@media (min-width: 576px) {
+  .card-columns {
+    column-count: 2!important;
+  }
+}
+
+@media (min-width: 768px) {
+  .card-columns {
+    column-count: 3!important;
+  }
+}
+
+@media (min-width: 900px) {
+  .card-columns {
+    column-count: 4!important;
+  }
+}
+
+@media (min-width: 1400px) {
+  .card-columns {
+    column-count: 5!important;
+  }
+}
+
+.jumbo{
+  width:60vw;
+  margin:2rem auto;
+}
+
+.jumbo-image{
+  width:50%!important;
+  justify-content: center!important;
+  align-content: center!important;
+  height:fit-content!important;
+
+}
+
+.jumbo-description{
+  justify-content: center!important;
+  align-content: center!important;
+  word-break: break-word ;
+}
