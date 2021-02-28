@@ -14,10 +14,6 @@ code {
 
 .nav-parent{
   background-color: rgba(244, 146, 117,1)!important;
-  /*background: url("images/stars-nav.jpg");*/
-  /*background-position: center;*/
-  /*background-repeat: no-repeat;*/
-  /*background-size:cover ;*/
 }
 
 /*f49d75*/
@@ -28,7 +24,6 @@ code {
   box-shadow: 0.5rem 0.5rem rgba(244, 210, 117,0)!important;
   border-radius:1rem!important;
   overflow:hidden!important;
-  margin:1rem;
 }
 
 .display-card:hover{
@@ -44,6 +39,12 @@ code {
 .main-content{
   margin:0 2rem!important;
 }
+
+/*.all-columns{*/
+
+/*}*/
+
+
 
 @media (min-width: 576px) {
   .card-columns {

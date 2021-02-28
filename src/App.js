@@ -15,12 +15,10 @@ function App() {
   const [isLoaded,setLoad] = useState(false)
   const [resp,setResp]=useState([])
   const [cardDetails, setCardDetails] = useState({})
-  const [query,setQuery] = useState("nasa")
+  const [query,setQuery] = useState("antarctica")
 
   useEffect(()=>{
-    console.log(isLoaded)
     setLoad(false)
-    console.log(isLoaded)
     search(query)
   },[query])
 
@@ -30,7 +28,6 @@ function App() {
         const response = await axios.get(queryUrl)
         setResp(response)
         setLoad(true)
-        // console.table(response.data.collection.items)
 
       }catch(error){
         setLoad(false)

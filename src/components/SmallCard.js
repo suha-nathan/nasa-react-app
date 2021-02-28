@@ -4,8 +4,8 @@ import {Card, CardColumns, Col, Image, Overlay, Row} from "react-bootstrap";
 
 function SmallCard({setCard,detail,url}) {
     return (
-        <>
-            <LinkContainer to= {url}>
+        <Col>
+            <LinkContainer to={url}>
                 <Card className={"display-card border-0"} onClick={()=>{setCard(detail)}} >
                     <Image variant="top" src={detail.links[0].href} fluid/>
                     {/*<Card.Body>*/}
@@ -17,7 +17,7 @@ function SmallCard({setCard,detail,url}) {
                 </Card>
             </LinkContainer>
             <Overlay/>
-        </>
+        </Col>
 
     );
 }
