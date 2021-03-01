@@ -10,16 +10,39 @@ import Navigation from "./components/Navigation";
 import AllCardDisplay from "./components/AllCardDisplay";
 import CardItem from "./components/CardItem";
 import ScrollToTop from "./components/ScrollToTop";
+import LoadingAnimation from "./components/LoadingAnimation";
 
 function App() {
-  const [isLoaded,setLoad] = useState(false)
-  const [resp,setResp]=useState([])
+  const [isLoaded,setLoaded] = useState(false)
+  const [resp,setResp]=useState({})
   const [cardDetails, setCardDetails] = useState({})
   const [query,setQuery] = useState("antarctica")
+  const [serverError,setServerError] = useState(false)
 
+//takes care of reload resulting in re-initialising of state of query and cardDetails
+  useEffect( ()=>{
+    const parsedDetail = localStorage.getItem("cardDetails")
+    const parsedQuery = localStorage.getItem("query")
+    // console.log("getting local storage")
+    // console.log(JSON.parse(parsedDetail))
+    // console.log(parsedDetail)
+    // console.log(parsedQuery)
+    setCardDetails(JSON.parse(parsedDetail))
+    setQuery(parsedQuery)
+  },[])
+
+  //sets the local storage of the indiv card detail clicked and sets the query
   useEffect(()=>{
-    setLoad(false)
+    localStorage.setItem("cardDetails",JSON.stringify(cardDetails))
+    localStorage.setItem("query",query)
+    // console.log("setting local storage")
+  },[cardDetails,query])
+
+
+  useEffect( ()=>{
     search(query)
+    console.log("query is searching")
+
   },[query])
 
   async function search(query){
@@ -27,43 +50,95 @@ function App() {
       try{
         const response = await axios.get(queryUrl)
         setResp(response)
-        setLoad(true)
+        setLoaded(true)
+        // console.log("query is searched")
 
       }catch(error){
-        setLoad(false)
+        setLoaded(true)
+        setServerError(true)
         console.log(error)
       }
   }
 
+  // let top = window.scrollTop
+  // let divht = window.scrollHeight
+  // let browserht = window.clientHeight
+  //
+  // console.log(top)
+  // console.log(divht)
+  // console.log(browserht)
+
   return (
   <Router>
-        <ScrollToTop cardDetails={cardDetails} query={query}>
-          <Navigation query={query} searchQuery={setQuery} />
-        {isLoaded ?
-          <div className={"main-content"}>
-            <Switch>
-              <Route exact path={"/"}>
-                Landing page here
-              </Route>
+    <ScrollToTop query={query} cardDetails={cardDetails}>
+      <Navigation query={query} searchQuery={setQuery} />
 
-              <Route path={"/home"}>
-                <AllCardDisplay data={resp.data.collection.items} setCard={setCardDetails} />
-              </Route>
+      {(()=>{
+        if(isLoaded && query){
+          return(
+              <div className={"main-content"}>
+                <Switch>
+                  <Route exact path={"/"}>
+                    Landing page here
+                  </Route>
 
-              <Route path={"/pin/:nasa_id"}>
-                <CardItem card={cardDetails} />
-                <AllCardDisplay data={resp.data.collection.items} setCard={setCardDetails} />
-              </Route>
+                  <Route exact path={"/home"}>
+                    <AllCardDisplay data={resp.data.collection.items} cardDetails={cardDetails} setCardDetails ={setCardDetails} />
+                  </Route>
 
-              <Route path={"*"}>
-                <h1>Error! go back home pls</h1>
-              </Route>
-            </Switch>
-          </div>
-            :
-            <h2>notLoaded, will be replaced by skeleton</h2>
+                  <Route path={"/pin/:nasa_id"}>
+                      <>
+                      <CardItem query={query} setQuery={setQuery} cardDetails={cardDetails}  />
+                    <AllCardDisplay data={resp.data.collection.items} setCardDetails={setCardDetails} />
+                    </>
+                  </Route>
+
+                  <Route path={"/save"}>
+                    <h1>Saved posts page</h1>
+                  </Route>
+
+                  <Route path={"*"}>
+                    <h1>Error! go back home pls</h1>
+                  </Route>
+                </Switch>
+              </div>
+              )
+        }else if(!isLoaded && !serverError){
+          return(<LoadingAnimation/>)
+        }else if(isLoaded && serverError){
+          return(<h2>Please Search Again!</h2>)
         }
-        </ScrollToTop>
+      })()}
+
+
+      {/*{isLoaded ?*/}
+      {/*  <div className={"main-content"}>*/}
+      {/*  <Switch>*/}
+      {/*  <Route exact path={"/"}>*/}
+      {/*  Landing page here*/}
+      {/*  </Route>*/}
+
+      {/*  <Route path={"/home"}>*/}
+      {/*  <AllCardDisplay data={resp.data.collection.items} setCard={setCardDetails} />*/}
+      {/*  </Route>*/}
+
+      {/*  <Route path={"/pin/:nasa_id"}>*/}
+      {/*  <CardItem card={cardDetails} />*/}
+      {/*  <AllCardDisplay data={resp.data.collection.items} setCard={setCardDetails} />*/}
+      {/*  </Route>*/}
+
+      {/*  <Route path={"*"}>*/}
+      {/*  <h1>Error! go back home pls</h1>*/}
+      {/*  </Route>*/}
+      {/*  </Switch>*/}
+      {/*  </div>*/}
+      {/*:  */}
+      {/*<h2> Loading in progress! </h2>*/}
+
+      {/*}}*/}
+
+
+    </ScrollToTop>
 
   </Router>
   );

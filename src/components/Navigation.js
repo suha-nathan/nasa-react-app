@@ -1,12 +1,11 @@
 import React, {useState} from 'react';
-import {Button, Container, FormControl, Image, Nav, Navbar, NavLink} from "react-bootstrap";
+import {Button, FormControl, Image,Navbar, NavLink} from "react-bootstrap";
 import {LinkContainer} from "react-router-bootstrap"
 
 function Navigation({query,searchQuery}) {
     const [tempQuery,setTempQuery] = useState("")
 
     function handleClick(){
-
         searchQuery(tempQuery)
         setTempQuery("")
     }
@@ -18,8 +17,8 @@ function Navigation({query,searchQuery}) {
     }
 
     return (
-        <Navbar variant="light" sticky={'top'} className={"nav-parent"}>
-            <LinkContainer className={"text-white"} to="/home">
+        <Navbar sticky={'top'} className={"nav-parent"}>
+            <LinkContainer className={"text-white"} to="/">
                 <Navbar.Brand >
                     <Image
                         alt=""
@@ -42,8 +41,9 @@ function Navigation({query,searchQuery}) {
             <FormControl variant={"outline-light"} value={tempQuery} type="text" placeholder="Search" className="mr-sm-5"
                          onChange={(e)=>{handleChange(e)}} />
 
-            <LinkContainer className={"mr-sm-5"} to='/home'>
-                <Button variant={"light"} className="mr-sm-3 border-white text-white" onClick={()=>{handleClick()}} >Search</Button>
+            <LinkContainer className={"mr-sm-5"} to={"/home"}>
+                {/*<Button variant={"light"} className="mr-sm-3 border-white text-white" onClick={()=>{handleClick()}} >Search</Button>*/}
+                <Button variant={"outline-light"} className="mr-sm-3"  onClick={()=>{handleClick()}}>Search</Button>
             </LinkContainer>
 
             <Image src="https://via.placeholder.com/50" roundedCircle />

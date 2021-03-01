@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {LinkContainer} from "react-router-bootstrap";
-import {Card, CardColumns, Col, Image, Overlay, Row} from "react-bootstrap";
+import {Card, Image} from "react-bootstrap";
 
-function SmallCard({setCard,detail,url}) {
+function SmallCard({detail,setCard,url}) {
+
+
     return (
-        <Col>
             <LinkContainer to={url}>
                 <Card className={"display-card border-0"} onClick={()=>{setCard(detail)}} >
                     <Image variant="top" src={detail.links[0].href} fluid/>
@@ -16,10 +17,8 @@ function SmallCard({setCard,detail,url}) {
                     {/*</Card.Body>*/}
                 </Card>
             </LinkContainer>
-            <Overlay/>
-        </Col>
 
     );
 }
-//small-card-item // className={"display-card-image"}
+
 export default SmallCard;

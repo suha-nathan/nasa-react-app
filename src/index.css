@@ -7,6 +7,28 @@ body {
   background-color: #FFFAFA!important;
 }
 
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 1rem;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgba(244, 146, 117,1);
+  border-radius: 1rem;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background:rgba(244, 146, 117,0.7);
+}
+
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -18,12 +40,11 @@ code {
 
 /*f49d75*/
 .display-card{
-  /*margin:0 auto;*/
   display: flex!important;
-  /*border: ;*/
   box-shadow: 0.5rem 0.5rem rgba(244, 210, 117,0)!important;
   border-radius:1rem!important;
   overflow:hidden!important;
+  break-inside: avoid;
 }
 
 .display-card:hover{
@@ -37,13 +58,8 @@ code {
 }
 
 .main-content{
-  margin:0 2rem!important;
+  margin:1rem 2rem!important;
 }
-
-/*.all-columns{*/
-
-/*}*/
-
 
 
 @media (min-width: 576px) {
@@ -88,3 +104,38 @@ code {
   align-content: center!important;
   word-break: break-word ;
 }
+
+.animation{
+  height: 40vh;
+  width:auto;
+  position: relative;
+  margin:1rem auto;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.animation img{
+  position: absolute;
+  top:0;
+  width:30vw;
+  height:auto;
+  margin:1rem auto;
+}
+
+.animation-overlay{
+  position: absolute;
+  top:0;
+  margin:1rem auto;
+  background: rgba(0, 0, 0, 0.5); /* Black see-through */
+  color: #f1f1f1;
+  width: 30%;
+  /*height:inherit;*/
+  transition: .5s ease;
+  opacity:1;
+  color: white;
+  font-size: 3rem;
+  text-align: center;
+}
+
+/*.animation:hover*/
