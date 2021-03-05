@@ -67,21 +67,22 @@ export default function InfinityCards({query,setCardDetails,loadedPhotos,toBeloa
                 {loadedPhotos.map((el, idx) => (
                     el.href &&
                     <div key={idx}>
-                        {el.count == toBeloaded.length-1 ?
-                            <div ref={newref}>
-                                <SmallCard  detail={el}  setCard={setCardDetails} url ={ `/pin/${el.nasa_id}`}/> </div>
-                            :
-                            <div>
-                                <SmallCard detail={el} setCard={setCardDetails} url ={ `/pin/${el.nasa_id}`}/></div>
-                        }
+                        {/*{el.count == loadedPhotos.length-1 ?*/}
+                        {/*    <div ref={newref}>*/}
+                        {/*        <SmallCard  detail={el}  setCard={setCardDetails} url ={ `/pin/${el.nasa_id}`}/> </div>*/}
+                        {/*    :*/}
+                        {/*    <div>*/}
+                        {/*        <SmallCard detail={el} setCard={setCardDetails} url ={ `/pin/${el.nasa_id}`}/></div>*/}
+                        {/*}*/}
+                        <div key={idx}>
+                            <SmallCard detail={el} setCard={setCardDetails} url ={ `/pin/${el.nasa_id}`}/>
+                        </div>
                     </div>
-                    // <div key={idx}>
-                    //     <SmallCard detail={el} setCard={setCardDetails} url ={ `/pin/${el.nasa_id}`}/>
-                    // </div>
+
                 ))}
-            </>
-            <>
-                {/*<h3>to be loaded photos</h3>*/}
+            {/*</>*/}
+            {/*<>*/}
+            {/*    /!*<h3>to be loaded photos</h3>*!/*/}
                 {toBeloaded.map((el,idx)=>(
                     el.href &&
                         <div key={idx}>

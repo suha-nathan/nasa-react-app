@@ -29,7 +29,7 @@ function App() {
   const [page,setPage]=useState(1)
   const [lastVisible,setLastVisible] = useState(null)
 
-//takes care of reload resulting in re-initialising of state of query and cardDetails
+// // takes care of reload resulting in re-initialising of state of query and cardDetails
 //   useEffect( ()=>{
 //     if(cardDetails){
 //       const parsedDetail = sessionStorage.getItem("cardDetails")
