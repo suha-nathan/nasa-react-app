@@ -1,16 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import {CardColumns} from "react-bootstrap";
 import SmallCard from "./SmallCard";
+// import {uploadData} from "../lib/library"
+// import {getData} from "../lib/library"
 
-
-function AllCardDisplay({data,cardDetails,setCardDetails}) {
+function AllCardDisplay({query,data,cardDetails,setCardDetails}) {
 
     const [cardArr,setCardArr] = useState([])
 
     function generateArray(num){
+        // getData(query)
         let tempArr=data.slice(0,num)
         setCardArr(tempArr)
     }
+
 
     useEffect(()=>{
         generateArray(30)

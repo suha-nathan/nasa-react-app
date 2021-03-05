@@ -6,8 +6,10 @@ function Navigation({query,searchQuery}) {
     const [tempQuery,setTempQuery] = useState("")
 
     function handleClick(){
-        searchQuery(tempQuery)
+        searchQuery(tempQuery.toLowerCase())
+        console.log("setting temp")
         setTempQuery("")
+        //set queriesDB
     }
 
     function handleChange(e){

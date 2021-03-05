@@ -2,23 +2,24 @@ import React, {useEffect, useState} from 'react';
 import {LinkContainer} from "react-router-bootstrap";
 import {Card, Image} from "react-bootstrap";
 
-function SmallCard({detail,setCard,url}) {
+const SmallCard = React.forwardRef((props,newRef) => {
 
+    function cardSetDetails(){
+        console.log("setting card details")
+        // console.log(props.detail)
+        // console.log(props.setCard)
+        props.setCard(props.detail)
+    }
 
     return (
-            <LinkContainer to={url}>
-                <Card className={"display-card border-0"} onClick={()=>{setCard(detail)}} >
-                    <Image variant="top" src={detail.links[0].href} fluid/>
-                    {/*<Card.Body>*/}
-                    {/*    <Card.Title>{el.data[0].title}</Card.Title>*/}
-                    {/*    <Card.Text>*/}
-                    {/*        {el.data[0].description.slice(0,100)}*/}
-                    {/*    </Card.Text>*/}
-                    {/*</Card.Body>*/}
-                </Card>
-            </LinkContainer>
-
+        <div ref={newRef}>
+        <LinkContainer to={props.url} >
+            <Card className={"display-card border-0"} onClick={() => {cardSetDetails()}}>
+                <Image variant="top" src={props.detail.href} fluid/>
+            </Card>
+        </LinkContainer>
+        </div>
     );
-}
+})
 
 export default SmallCard;
