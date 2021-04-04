@@ -27,11 +27,15 @@ The user must be able to:
 
 ### Planning and Development Process
 
-I had a timeline over 5 days to plan and execute the user stories and features. The basic app that included the ability to search and view posts were straightforward to build. However, the difficulty came about when trying to add more complex functionality to the app. As the user scrolls "indefinitely" and searches more keywords, the data requested from the NASA API grows larger. To deal with this larger dataset, I decided to migrate the data storage to firebase. 
+I had a timeline over 5 days to plan and execute the user stories and features. The basic app that included the ability to search and view posts were straightforward to build. However, the difficulty came about when trying to add more complex functionality to the app. 
+
+There were 2 main challenges - to create the infinite scroll feature from scratch (not using and libraries/npm packages) and to deal with the large dataset due to the infinite scroll and search terms. 
+
+The infinite scroll feature was implemented using the Intersection Observer Web API. As the user scrolls "indefinitely" and/or searches more keywords, the data requested from the NASA API grows larger. To deal with this larger dataset, I decided to migrate the data storage to firebase. This prevented excessive/unnecessary calls to the NASA API.  
 
 ### Problem-Solving Strategy
 
-Aside from what you see in this repository, I built many throwaway prototypes to test the additional feature functionality separately from the main application. After getting the feature to work independently, I worked on integrating the code step by step. 
+Aside from what you see in this repository, I built a number of throwaway prototypes to test the additional feature functionality separately from the main application. After getting the feature to work independently, I worked on integrating the code step by step. 
 
 ### Unsolved problems
 
