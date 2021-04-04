@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {LinkContainer} from "react-router-bootstrap";
 import {Card, Image} from "react-bootstrap";
 
 const SmallCard = React.forwardRef((props,newRef) => {
 
     function cardSetDetails(){
-        console.log("setting card details")
+        // console.log("setting card details")
         // console.log(props.detail)
         // console.log(props.setCard)
         props.setCard(props.detail)

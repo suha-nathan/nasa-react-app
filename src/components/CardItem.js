@@ -1,12 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Image,Jumbotron,Button} from "react-bootstrap"
 // import AllCardDisplay from "./AllCardDisplay";
 // import {useRouteMatch} from "react-router-dom"
 
 function CardItem({cardDetails,query, setQuery}) {
 
-    useEffect(()=>{
-        let key
+    // //to implement keyword based suggested posts
+    // useEffect(()=>{
+        // let key
         // if (cardDetails?.keywords?.length>1){
         //     const uniqueWords = cardDetails.keywords.filter(keyword=> keyword!==query)
         //     key = uniqueWords[0].toLowerCase()
@@ -18,7 +19,7 @@ function CardItem({cardDetails,query, setQuery}) {
         // console.log(cardDetails?.keywords)
         // console.log(key)
         // setQuery(key)
-    },[cardDetails])
+    // },[cardDetails])
 
     return (
 

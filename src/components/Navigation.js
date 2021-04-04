@@ -1,13 +1,17 @@
 import React, {useState} from 'react';
-import {Button, FormControl, Image,Navbar, NavLink} from "react-bootstrap";
+import {Button, FormControl, Image,Navbar, NavLink, Alert} from "react-bootstrap";
 import {LinkContainer} from "react-router-bootstrap"
+import { checkQuery } from "../lib/library"
 
-function Navigation({query,searchQuery}) {
+function Navigation({setQueriesDb,setQuery}) {
     const [tempQuery,setTempQuery] = useState("")
-
+    const [alert,setAlert] = useState(false)
     function handleClick(){
-        searchQuery(tempQuery.toLowerCase())
-        console.log("setting temp")
+        if(!tempQuery){
+            return setAlert(true)
+        }
+        checkQuery(tempQuery, setQueriesDb)
+        setQuery(tempQuery)        
         setTempQuery("")
         //set queriesDB
     }
@@ -15,10 +19,14 @@ function Navigation({query,searchQuery}) {
     function handleChange(e){
         let temp
         temp = e.target.value
-        setTempQuery(temp)
+        setTempQuery(temp.toLowerCase())
     }
 
     return (
+        <>
+        {alert && 
+           <Alert variant="danger">Not valid query</Alert> 
+        }
         <Navbar sticky={'top'} className={"nav-parent"}>
             <LinkContainer className={"text-white"} to="/">
                 <Navbar.Brand >
@@ -51,7 +59,7 @@ function Navigation({query,searchQuery}) {
             <Image src="https://via.placeholder.com/50" roundedCircle />
 
         </Navbar>
-
+        </>
     );
 }
 
