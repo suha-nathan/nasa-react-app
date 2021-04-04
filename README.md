@@ -1,70 +1,54 @@
-# Getting Started with Create React App
+# To Infinity and Beyond 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
 
-## Available Scripts
+This single page web application was built for users to easily access and view NASA imagery and information. 
 
-In the project directory, you can run:
+### Tech
 
-### `npm start`
+```
+- React and React Router
+- Bootstrap with react
+- Axios for API
+- Firebase and firestore (for larger, longer term data storage)
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### User Stories
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```
+The user must be able to:
 
-### `npm test`
+- View multiple images in a grid 
+- View each individual image and its associated title and description
+- Search by simple queries from a search bar
+- Scroll the page almost indefinitely
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Planning and Development Process
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+I had a timeline over 5 days to plan and execute the user stories and features. The basic app that included the ability to search and view posts were straightforward to build. However, the difficulty came about when trying to add more complex functionality to the app. I encountered many problems with the async nature of react/javascript. The concept of the event loop is also very important especially when the user has many ways to interact with the single page application
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Problem-Solving Strategy
 
-### `npm run eject`
+Aside from what you see in this repository, I built many throwaway prototypes to test the additional feature functionality separately from the main application. After getting the feature to work independently, I worked on integrating the code step by step. 
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Unsolved problems
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- The "infinite" scroll has a limit of a 100 items. 
+- Suggested Posts feature is unfinished
+- Duplicate images due to error loading the photos into the state
+- The layout of photos, especially when more photos are loaded when the user scrolls
+- Search function instability
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```
 
-## Learn More
+## APIs Used
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The main API used was images.nasa.gov.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
