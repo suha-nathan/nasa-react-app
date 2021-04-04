@@ -5,33 +5,34 @@ const db = firebase.firestore()
 
 export async function uploadData(collection, dataItem,idx){
     try {
-        const ref = await db.collection(collection)
+        await db.collection(collection)
             .doc(dataItem.data[0].nasa_id)
             .set( {...{count:idx},...{...dataItem.data[0],...dataItem.links[0]}})
-        console.log(`uploading ${collection} to firestore!`)
+        // console.log(`uploading ${collection} to firestore!`)
     }catch(e){
         // console.log(e)
     }
 }
 
-export async function getData(query,num,lastVisible,setLastVisible,setToBeLoaded, setServerError,setLoadedPhotos){
+export async function getData(query,num,lastVisible,setLastVisible, setServerError,setLoadedPhotos){
     if (!query){ 
-        setServerError("cant query DB") }
+        setServerError(true) 
+    }
     else {
+        setServerError(false)
         let ref
         if (lastVisible){
-            console.log("getting NOT FIRST ")
+            // console.log("getting subsequent ")
             ref = db.collection(query)
                 .orderBy("count")
                 .startAfter(lastVisible)
-                .limit(10)
+                .limit(num)
         }else {
-            console.log("getting first visible")
+            // console.log("getting first visible")
             ref = db.collection(query)
                 .orderBy("count")
-                .limit(10)
+                .limit(num)
         }
-        console.log("running")
         let arr=[]
         ref.get().then( (snapshot)=>{ 
             // console.log(snapshot)
@@ -42,7 +43,6 @@ export async function getData(query,num,lastVisible,setLastVisible,setToBeLoaded
             })
         setLoadedPhotos(prev => [...prev, ...arr] )
         })
-        // setToBeLoaded(arr)
         
     }
     
@@ -53,14 +53,14 @@ export async function addQuery(query){
 }
 
 export async function checkQuery(query,setQueriesDb){
-    const check = await db.collection("query").doc(query).get()
-
-    check.then((docSnapshot)=>{
+    const check = await db.collection("query").doc(query)
+    
+    check.get().then((docSnapshot)=>{
         if (docSnapshot.exists){
-            console.log("query is in  DB !!")
+            // console.log("query is in  DB !!")
             setQueriesDb(true)
         }else{
-            console.log("query is not in DB :(")
+            // console.log("query is not in DB :(")
             setQueriesDb(false)
         }
     })

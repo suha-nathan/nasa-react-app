@@ -61,6 +61,14 @@ code {
   margin:1rem 2rem!important;
 }
 
+.all-columns{
+  position:relative!important;
+}
+
+.all-columns .nasa-card-item{
+  padding:0.5rem;
+}
+
 
 @media (min-width: 576px) {
   .card-columns {
