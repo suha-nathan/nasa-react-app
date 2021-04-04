@@ -4,7 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
-
+/.idea
 package-lock.json
 
 # testing
@@ -23,3 +23,9 @@ package-lock.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# firebase config
+/.firebaserc
+firebase.json
+firestore.indexes.json 
+firestore.rules

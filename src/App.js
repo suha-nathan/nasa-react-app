@@ -20,7 +20,7 @@ function App() {
   const [isLoaded,setLoaded] = useState(false)
   // const [resp,setResp]=useState({})
   const [cardDetails, setCardDetails] = useState(null)
-  const [query,setQuery] = useState("antarctica")
+  const [query,setQuery] = useState("")
   const [serverError,setServerError] = useState(false)
   const [queriesDb,setQueriesDb] = useState(true)
 
@@ -30,81 +30,75 @@ function App() {
   const [lastVisible,setLastVisible] = useState(null)
 
 // // takes care of reload resulting in re-initialising of state of query and cardDetails
-//   useEffect( ()=>{
-//     if(cardDetails){
-//       const parsedDetail = sessionStorage.getItem("cardDetails")
-//       const parsedQuery = sessionStorage.getItem("query")
-//       setCardDetails(JSON.parse(parsedDetail))
-//       setQuery(parsedQuery)
-//     }
-//   },[])
+  useEffect( ()=>{
+    console.log("component did mount")
+    setQuery("nasa")
+    getData(query, 10, lastVisible, setLastVisible, setToBeLoaded,setServerError,setLoadedPhotos)
+        .then(()=>{setLoaded(true)})
+    if(cardDetails){
+      const parsedDetail = sessionStorage.getItem("cardDetails")
+      const parsedQuery = sessionStorage.getItem("query")
+      setCardDetails(JSON.parse(parsedDetail))
+      setQuery(parsedQuery)
+    }
+  },[])
 //
 //   //sets the session storage of the indiv card detail clicked and sets the query
-//   useEffect(()=>{
-//     sessionStorage.setItem("cardDetails",JSON.stringify(cardDetails))
-//     sessionStorage.setItem("query",query)
-//   },[cardDetails])
+  useEffect(()=>{
+    sessionStorage.setItem("cardDetails",JSON.stringify(cardDetails))
+    sessionStorage.setItem("query",query)
+  },[cardDetails])
+
 
   useEffect( ()=>{
     console.log("changing query")
-    checkQuery(query,setQueriesDb).then(() => {
-      if(queriesDb===true){
-        getData(query, 10, lastVisible, setLastVisible, setToBeLoaded).then(()=>{
-          setLoadedPhotos([])
-          setPage(1)
-          setLoaded(true)
-        })
-      }else{ ///query is not in DB
-        search(query).then(()=>{
-          setLoaded(true)
-          console.log("getting data")
-          getData(query, 10, lastVisible, setLastVisible, setToBeLoaded)
-        })
-      }
-    })
-
+    console.log(page)
+    setLoaded(false)
+    setLoadedPhotos([])
+    setToBeLoaded([])
+    setPage(1)
+    setLastVisible(null)
+    getData(query, 10, null, setLastVisible, setToBeLoaded,setServerError,setLoadedPhotos)
+        .then(()=>{setLoaded(true)})
   },[query])
 
 
-  useEffect(()=>{
-    console.log("getting data for ",query)
-    console.log("page num is", page)
-    console.log("loadedPhotos is",loadedPhotos)
-    console.log("toBeloaded is",toBeloaded)
-    getData(query, 10, lastVisible, setLastVisible, setToBeLoaded)
+  // useEffect( ()=>{
+  //   console.log("setting loaded photos")
+  //   setLoadedPhotos(prevState => [...prevState, ...toBeloaded])
 
+  // },[toBeloaded])
+
+  useEffect(()=>{
+    if(page>1) { //only gets data after initialising the query
+      console.log("incrementing page")
+      getData(query, 10, lastVisible, setLastVisible, setToBeLoaded,setServerError,setLoadedPhotos)
+    }
   },[page])
 
-  useEffect( ()=>{
-    if(! toBeloaded.some(el=>loadedPhotos.includes(el))) {
-      setLoadedPhotos(prevState => [...prevState, ...toBeloaded])
-    }
-  },[toBeloaded])
 
 
+  // async function search(query){
+  //   const queryUrl = `https://images-api.nasa.gov/search?q=${query}`
+  //     try{
+  //         addQuery(query)
+  //         const response = await axios.get(queryUrl)
+  //         response.data.collection.items.forEach((dataItem,idx)=>{
+  //           uploadData(query,dataItem,idx)
+  //         })
+  //     }catch(error){
+  //       setLoaded(true)
+  //       setServerError(true)
+  //       console.log(error)
+  //     }
+  // }
 
-  async function search(query){
-    const queryUrl = `https://images-api.nasa.gov/search?q=${query}`
-    // console.log(query)
-    // console.log(queriesDb)
-      try{
-        //check if data query exists in DB.
-        // if it doesnt, get the data from API and upload the data to firestore
-        // if(queriesDb === false){
-          addQuery(query)
-          const response = await axios.get(queryUrl)
-          response.data.collection.items.forEach((dataItem,idx)=>{
-            uploadData(query,dataItem,idx)
-          })
-
-        // }
-        setLoaded(true)
-      }catch(error){
-        setLoaded(true)
-        setServerError(true)
-        console.log(error)
-      }
-  }
+  console.log(loadedPhotos)
+  // console.log(page)
+  // console.log(toBeloaded)
+  // console.log(query);
+  // console.log(lastVisible?.data());
+  
 
   return (
   <Router>

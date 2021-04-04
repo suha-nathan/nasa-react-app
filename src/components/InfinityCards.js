@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import SmallCard from "./SmallCard";
-import {Card, CardColumns, Image} from "react-bootstrap";
+import {Card, CardColumns, Col, Image, Row} from "react-bootstrap";
 import {getData} from "../lib/library";
 import {LinkContainer} from "react-router-bootstrap";
 
@@ -10,33 +10,30 @@ export default function InfinityCards({query,setCardDetails,loadedPhotos,toBeloa
     // const [toBeloaded,setToBeLoaded] = useState([])
     // const [page,setPage]=useState(1)
     // const [lastVisible,setLastVisible] = useState(null)
+
+    let observer,globalNode
+
     const newref = useCallback( node=>{
         if (node!= null){
-            initObserver(node)
+            globalNode = node
+            initObserver(globalNode)
+            console.log(globalNode)
         }
-    },[])
 
-    // useEffect(()=>{
-    //     console.log("getting data for ",query)
-    //     console.log("page num is", page)
-    //     console.log("loadedPhotos is",loadedPhotos)
-    //     console.log("toBeloaded is",toBeloaded)
-    //     getData(query, 10, lastVisible, setLastVisible, setToBeLoaded)
-    // },[page])
-    //
-    // useEffect(()=>{
-    //     setLoadedPhotos([])
-    //     getData(query, 10, lastVisible, setLastVisible, setToBeLoaded)
-    // },[query])
-    //
-    // useEffect( ()=>{
-    //     if(! toBeloaded.some(el=>loadedPhotos.includes(el))) {
-    //         setLoadedPhotos(prevState => [...prevState, ...toBeloaded])
-    //     }
-    // },[toBeloaded])
+    },[loadedPhotos])
+
+    useEffect(()=>{
+        return ()=>{
+            if(globalNode){
+                console.log("removing observer")
+                observer.unobserve(globalNode)
+            }
+        }
+    })
 
     function handleObserver(entities,observer){
         if (entities[0].intersectionRatio>=0.9){
+            console.log("increasing page")
             setPage(count=>count+1)
         }
     }
@@ -49,7 +46,7 @@ export default function InfinityCards({query,setCardDetails,loadedPhotos,toBeloa
             threshold:1
         }
 
-        let observer = new IntersectionObserver(
+        observer = new IntersectionObserver(
             handleObserver,options
         )
         if(node){
@@ -57,47 +54,32 @@ export default function InfinityCards({query,setCardDetails,loadedPhotos,toBeloa
         }
     }
 
-    // console.log(loadedPhotos)
-    // console.log(toBeloaded)
-    // console.log(query)
     return (
-        <CardColumns className={"all-columns"}>
-            <>
-                {/*<div>loaded photos</div>*/}
-                {loadedPhotos.map((el, idx) => (
-                    el.href &&
-                    <div key={idx}>
-                        {/*{el.count == loadedPhotos.length-1 ?*/}
-                        {/*    <div ref={newref}>*/}
-                        {/*        <SmallCard  detail={el}  setCard={setCardDetails} url ={ `/pin/${el.nasa_id}`}/> </div>*/}
-                        {/*    :*/}
-                        {/*    <div>*/}
-                        {/*        <SmallCard detail={el} setCard={setCardDetails} url ={ `/pin/${el.nasa_id}`}/></div>*/}
-                        {/*}*/}
-                        <div key={idx}>
-                            <SmallCard detail={el} setCard={setCardDetails} url ={ `/pin/${el.nasa_id}`}/>
-                        </div>
-                    </div>
+        <>
+        <h4>Showing Results for: {query} </h4>
+        <Row className={"all-columns"}>
+            {loadedPhotos.map((el,idx)=>(
+                // el.href &&
+                el.count == loadedPhotos.length-2 ?
+                    <Col className="nasa-card-item" xs={6} md={4}  key={idx} ref={newref}>
+                        <SmallCard  detail={el}  setCard={setCardDetails} url ={ `/pin/${el.nasa_id}`}/> </Col>
+                    :
+                    <Col className="nasa-card-item" xs={6} md={4} key={idx}>
+                        <SmallCard detail={el} setCard={setCardDetails} url ={ `/pin/${el.nasa_id}`}/></Col>
 
-                ))}
-            {/*</>*/}
-            {/*<>*/}
-            {/*    /!*<h3>to be loaded photos</h3>*!/*/}
-                {toBeloaded.map((el,idx)=>(
-                    el.href &&
-                        <div key={idx}>
-                        {el.count == toBeloaded.length-1 ?
-                            <div ref={newref}>
-                                <SmallCard  detail={el}  setCard={setCardDetails} url ={ `/pin/${el.nasa_id}`}/> </div>
-                            :
-                            <div>
-                                <SmallCard detail={el} setCard={setCardDetails} url ={ `/pin/${el.nasa_id}`}/></div>
-                        }
-                        </div>
-                ))
-                }
-            </>
+            ))}
+                {/*{toBeloaded.map((el,idx)=>(*/}
+                {/*    // el.href &&*/}
+                {/*        el.count == toBeloaded.length-1 ?*/}
+                {/*            <Col xs={6} md={4}  key={idx} ref={newref}>*/}
+                {/*                <SmallCard  detail={el}  setCard={setCardDetails} url ={ `/pin/${el.nasa_id}`}/> </Col>*/}
+                {/*            :*/}
+                {/*            <Col xs={6} md={4} key={idx}>*/}
+                {/*                <SmallCard detail={el} setCard={setCardDetails} url ={ `/pin/${el.nasa_id}`}/></Col>*/}
 
-        </CardColumns>
+                {/*))}*/}
+
+        </Row>
+        </>
     );
 }
