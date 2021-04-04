@@ -25,11 +25,9 @@ The user must be able to:
 
 ```
 
----
-
 ### Planning and Development Process
 
-I had a timeline over 5 days to plan and execute the user stories and features. The basic app that included the ability to search and view posts were straightforward to build. However, the difficulty came about when trying to add more complex functionality to the app. I encountered many problems with the async nature of react/javascript. The concept of the event loop is also very important especially when the user has many ways to interact with the single page application
+I had a timeline over 5 days to plan and execute the user stories and features. The basic app that included the ability to search and view posts were straightforward to build. However, the difficulty came about when trying to add more complex functionality to the app. As the user scrolls "indefinitely" and searches more keywords, the data requested from the NASA API grows larger. To deal with this larger dataset, I decided to migrate the data storage to firebase. 
 
 ### Problem-Solving Strategy
 
@@ -38,13 +36,9 @@ Aside from what you see in this repository, I built many throwaway prototypes to
 ### Unsolved problems
 
 ```
-
 - The "infinite" scroll has a limit of a 100 items. 
-- Suggested Posts feature is unfinished
-- Duplicate images due to error loading the photos into the state
-- The layout of photos, especially when more photos are loaded when the user scrolls
-- Search function instability
-
+- Suggested Posts feature is to be implemented
+- Masonry grid layout to be implemented
 ```
 
 ## APIs Used
